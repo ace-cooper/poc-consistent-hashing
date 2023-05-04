@@ -1,0 +1,23 @@
+{
+  "name": "poc-consistent-hashing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ace-cooper/poc-consistent-hashing.git"
+  },
+  "author": "Hugo Fagundes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ace-cooper/poc-consistent-hashing/issues"
+  },
+  "homepage": "https://github.com/ace-cooper/poc-consistent-hashing#readme",
+  "devDependencies": {
+    "@types/node": "^18.16.3",
+    "typescript": "^5.0.4"
+  }
+}
