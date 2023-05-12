@@ -1,7 +1,7 @@
 import * as index from '../../src';
 
 const _exports: any = {};
-console.log(index)
+
 for (let key in index) {
     _exports[key] = {};
 

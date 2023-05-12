@@ -4,7 +4,7 @@
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "bash ./bin/start.sh",
     "migrate-gen": "npx prisma migrate dev --name '_mg' --create-only",
     "migrate-run": "npx prisma migrate deploy",
     "db-pull": "npx prisma db pull",

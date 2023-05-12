@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-withCtx({ }, async () => Database.withDBM(async () => {
+withCtx({}, async () => Database.withDBM(async () => {
     app.get('/users/:id', async (req, res) => {
         const dataId = req.params.id;
         const data = await index.users!.GET!.findOne(dataId);

@@ -4,11 +4,10 @@ It's only another proof of concept of consistent hashing algorithm. It's not a p
 Ps: It's not using a third party library to implement consistent hashing, it's just a simple implementation of the algorithm, and could be found in the file ./src/core/cache.ts
 
 ## Installation
-### first steps:
-  1. install docker
-  2. install node
-
-## Via bash
+  ### Step 1
+     install docker
+  ### Step 2
+     install node
   ### Step 3
   ```bash
   $ ./bin/init.sh
@@ -29,6 +28,10 @@ Ps: It's not using a third party library to implement consistent hashing, it's j
   ```
   ### Step 2
   Run > Start Debug (F11)
+  or
+  ```bash
+  $ ./bin/start.sh
+  ```
   or
   ```bash
   $ npm start
