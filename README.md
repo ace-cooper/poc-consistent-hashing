@@ -1,7 +1,9 @@
 # Consistent Hashing Poc
-It's only another proof of concept of consistent hashing algorithm. It's not a production ready code, it's just a simple code with study purposes to showcase how it works distributing data across a cluster of servers. Also, there is a pretty simple cache layer to show how to use consistent hashing to cache data.
+It's only another proof of concept of consistent hashing algorithm, just a simple code with study purposes to showcase how it works distributing data across a cluster of servers. Also, there is a pretty simple cache layer to show how to use consistent hashing to cache data.
 
-Ps: It's not using a third party library to implement consistent hashing, it's just a simple implementation of the algorithm, and could be found in the file ./src/core/cache.ts
+### It's not a production ready code!
+
+Ps: I'm not using a third party library to implement consistent hashing. The simple implementation of the algorithm could be found in the file **./src/core/cache.ts**
 
 ## Installation
   ### Step 1
