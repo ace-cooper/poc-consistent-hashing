@@ -1,11 +1,13 @@
 import * as crypto from 'crypto';
+import { RedisClientType, createClient } from 'redis';
+import { cacheAddresses } from './config';
 
-export namespace Database {
-
+export namespace Cache {
     const hashRing: Map<number, Node> = new Map();
-
+    
     export interface Node {
         id: string;
+        client: RedisClientType
     }
 
     export const hash = (value: string): number => {
@@ -23,7 +25,7 @@ export namespace Database {
         hashRing.delete(position);
     }
     
-    export const getNodeForKey = (key: string): Node | null => {
+    export const getNodeForKey = async (key: string): Promise<Node | null> => {
         if (hashRing.size === 0) {
             return null;
         }
@@ -31,14 +33,23 @@ export namespace Database {
         const keyHash = hash(key);
         const positions = Array.from(hashRing.keys());
         positions.sort((a, b) => a - b);
+        let node: Node = hashRing.get(positions[0])!;
 
         for (const position of positions) {
             if (keyHash <= position) {
-            return hashRing.get(position)!;
+                node = hashRing.get(position)!
+                break;
             }
         }
 
-        return hashRing.get(positions[0])!;
+        if (!node.client.isOpen) {
+            await node.client.connect();
+        }
+
+        return node;
     }
 
+    for (const address of cacheAddresses) {
+        Cache.addNode({ id: address, client: createClient(address) });
+    }
 }

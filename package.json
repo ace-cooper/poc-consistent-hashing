@@ -18,11 +18,15 @@
   "homepage": "https://github.com/ace-cooper/poc-consistent-hashing#readme",
   "devDependencies": {
     "@types/node": "^18.16.3",
+    "prisma": "^4.14.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@prisma/client": "^4.14.0",
+    "cls-hooked": "^4.2.2",
     "dotenv": "^16.0.3",
-    "redis": "^4.6.6"
+    "redis": "^4.6.6",
+    "ulid": "^2.3.0"
   }
 }

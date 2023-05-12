@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserEntity {
+  id        String @id @db.VarChar
+  createdAt DateTime? @default(now()) @db.Timestamptz 
+  updatedAt DateTime? @updatedAt @default(now())
+  username  String @db.VarChar(14)
+  password  String @db.VarChar
+  active    Boolean   @default(true)
+  deleted   Boolean   @default(false)
+  version   String?  @db.VarChar
+  isHotUser Boolean? @default(false)
+
+  @@map("User")
+}
+
+model UserFollowerEntity {
+  id          String @id @db.VarChar
+  userId      String
+  followerId  String
+  createdAt   DateTime? @default(now()) @db.Timestamptz 
+  updatedAt   DateTime? @updatedAt  
+
+  @@unique([userId, followerId])
+  @@map("UserFollower")
+}
+
+model PostEntity {
+  id        String @id @db.VarChar
+  createdAt DateTime? @default(now()) @db.Timestamptz 
+  updatedAt DateTime? @updatedAt
+  content   String    @db.Text
+  userId    String    @db.VarChar
+  postId    String?    @db.VarChar
+  active    Boolean   @default(true)
+  deleted   Boolean   @default(false)
+  version   String?  @db.VarChar
+
+  @@map("Post")
+  @@index([userId])
+}

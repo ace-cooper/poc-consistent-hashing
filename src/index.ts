@@ -1,11 +1,19 @@
-import { Database } from "./database";
+import { exit } from "process";
+import { Database } from "./core/database";
+import { createInterface } from 'readline';
 
-Database.addNode({ id: 'node1' });
-Database.addNode({ id: 'node2' });
-Database.addNode({ id: 'node3' });
-Database.addNode({ id: 'node4' });
+const readline = createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
 
-const key = 'testKey';
-const nodeForKey = Database.getNodeForKey(key);
-
-console.log(`Key "${key}" is mapped to Node "${nodeForKey?.id}"`, Database.hash(key));
+(async () => {
+    readline.question(`Write the hash key: `, async key => {
+        const nodeForKey = await Database.getNodeForKey(key);
+        
+        console.log(`Key "${key}" is mapped to Node "${nodeForKey?.id}"`, Database.hash(key));
+        readline.close();
+        exit()
+    });
+}
+)();

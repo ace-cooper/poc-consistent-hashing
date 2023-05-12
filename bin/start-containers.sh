@@ -12,6 +12,8 @@ else
 fi
 
 # export ENV_MODE=$mode
-echo "Starting containers..."
-$ROOT_FOLDER/bin/_stop-containers.sh &> /dev/null
+echo "Starting containers...\n"
+echo "Cache ports: $CACHE_PORTS"
+$ROOT_FOLDER/bin/stop-containers.sh &> /dev/null
 $ROOT_FOLDER/bin/db-docker-postgresql.sh start $mode $DB_PORT
+$ROOT_FOLDER/bin/docker-redis.sh start $mode "$CACHE_PORTS"
