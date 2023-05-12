@@ -19,7 +19,7 @@
       "type": "node",
       "request": "launch",
       "name": "Debug Nest Framework",
-      "args": ["${workspaceFolder}/servers/http/http.ts"],
+      "args": ["${workspaceFolder}/servers/http/http-server.ts"],
       "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
       "sourceMaps": true,
       "cwd": "${workspaceRoot}",

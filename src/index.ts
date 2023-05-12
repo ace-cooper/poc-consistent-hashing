@@ -1,19 +1,21 @@
-import { exit } from "process";
-import { Database } from "./core/database";
-import { createInterface } from 'readline';
+export { UserController as users } from './app/users/users.controller';
 
-const readline = createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
+// import { exit } from "process";
+// import { Database } from "./core/database";
+// import { createInterface } from 'readline';
 
-(async () => {
-    readline.question(`Write the hash key: `, async key => {
-        const nodeForKey = await Database.getNodeForKey(key);
+// const readline = createInterface({
+//     input: process.stdin,
+//     output: process.stdout,
+// });
+
+// (async () => {
+//     readline.question(`Write the hash key: `, async key => {
+//         const nodeForKey = await Database.getNodeForKey(key);
         
-        console.log(`Key "${key}" is mapped to Node "${nodeForKey?.id}"`, Database.hash(key));
-        readline.close();
-        exit()
-    });
-}
-)();
+//         console.log(`Key "${key}" is mapped to Node "${nodeForKey?.id}"`, Database.hash(key));
+//         readline.close();
+//         exit()
+//     });
+// }
+// )();

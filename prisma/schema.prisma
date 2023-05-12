@@ -14,6 +14,7 @@ model UserEntity {
   id        String @id @db.VarChar
   createdAt DateTime? @default(now()) @db.Timestamptz 
   updatedAt DateTime? @updatedAt @default(now())
+  name      String @db.VarChar(20)
   username  String @db.VarChar(14)
   password  String @db.VarChar
   active    Boolean   @default(true)
@@ -30,6 +31,8 @@ model UserFollowerEntity {
   followerId  String
   createdAt   DateTime? @default(now()) @db.Timestamptz 
   updatedAt   DateTime? @updatedAt  
+  active    Boolean   @default(true)
+  deleted   Boolean   @default(false)
 
   @@unique([userId, followerId])
   @@map("UserFollower")

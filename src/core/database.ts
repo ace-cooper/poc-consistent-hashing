@@ -8,7 +8,7 @@ export namespace Database {
 
     export const createDBM = () => new PrismaClient()
 
-    export const getDBM = () => getCtx()?.get("dbm") as PrismaClient;
+    export const getDBM: () => PrismaClient = () => getCtx()?.get("dbm") as PrismaClient;
 
     export const withDBM = async (block: (dbm: PrismaClient) => any) => {
         const ctx = getCtx();
@@ -63,5 +63,16 @@ export namespace Database {
     export const getCurrentDBMX = () => (getCurrentTransaction() || getDBM())  as PrismaClient;
 
     export const getCtxModels = () => getCtx()?.get('dbm')?.models;
+
+    export abstract class BaseEntity {
+        protected static _repo;
+        public static get repo(): any { throw new Error(`${this.name} must override repo getter`); }
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        active: boolean;
+        deleted: boolean;
+        version: string;
+    }
 
 }
