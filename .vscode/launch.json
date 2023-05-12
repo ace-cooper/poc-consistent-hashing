@@ -1,29 +1,16 @@
 {
   "version": "0.2.0",
-  "configurations": [
+  "configurations": [    
     {
       "type": "node",
       "request": "launch",
-      "name": "DEV Http",
-      "cwd": "${workspaceFolder}",
-      "runtimeArgs": [
-        "--loader",
-        "ts-node/esm",
-        "--experimental-specifier-resolution=node"
-      ],
-      "program": "${workspaceFolder}/servers/http/http-server.ts",
-      "envFile": "${workspaceFolder}/.env"
-    },
-            
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Debug Nest Framework",
+      "name": "Debug Dev Http",
       "args": ["${workspaceFolder}/servers/http/http-server.ts"],
       "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
       "sourceMaps": true,
       "cwd": "${workspaceRoot}",
-      "protocol": "inspector"
+      "protocol": "inspector",
+      "envFile": "${workspaceFolder}/.env"
   }
   ]
 }
