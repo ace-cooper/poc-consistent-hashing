@@ -10,7 +10,7 @@ export namespace UserController {
 
     export namespace GET {
         export const findOne = async (id: string) => {
-            return await UserService.findOne(id);
+            return await UserService.findById(id);
         }
     }
 }

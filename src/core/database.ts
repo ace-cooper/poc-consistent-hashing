@@ -1,10 +1,12 @@
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 import { getCtx } from './context';
 import { ulid } from 'ulid';
+import { Cache } from './cache';
 
 export namespace Database {
 
     export const genId = (seedTime?: number) => ulid(seedTime);
+    export const genVr = (seedTime?: number) => ulid(seedTime);
 
     export const createDBM = () => new PrismaClient()
 
@@ -74,5 +76,85 @@ export namespace Database {
         deleted: boolean;
         version: string;
     }
+
+    export class BaseService<T extends BaseEntity> {
+        constructor(public readonly target: T) {}
+      
+        public get repository() {
+          return this.target['repo'];
+        }
+      
+        public async findById(id: string, bypassCache?: boolean): Promise<T> {
+          try {
+            if (!bypassCache) {
+                const key = Cache.normalizeKey(this.target['name'], id);
+                const cache = await Cache.getNodeForKey(key);
+
+                if (cache) {
+                    const data = await cache.client.get(key);
+                    if (data) {
+                        return JSON.parse(data);
+                    }
+                }
+            }
+          } catch (e) {
+            console.log(e);
+          }
+
+          return this.repository.findUnique({
+            where: {
+              id,
+            },
+          });
+        }
+
+        public async create(data: Partial<T>): Promise<T> {
+            const entity = await this.repository.create({ data });
+            try {
+                const key = Cache.normalizeKey(this.target['name'], entity.id);
+                const cache = await Cache.getNodeForKey(key);
+                await cache?.client.set(key, JSON.stringify(entity));
+            } catch (e) {
+                console.log(e);
+            }
+            return entity;
+        }
+      
+      
+        public async optimisticUpdate<U extends Partial<T | any>>(
+          entity: T,
+          data: Prisma.XOR<T, U>
+        ): Promise<Prisma.BatchPayload> {
+          data = {
+            rowVersion: genVr(),
+            updatedAt: new Date(),
+            ...data,
+          };
+
+          const result: Prisma.BatchPayload = await this.repository.updateMany({
+            where: {
+              id: entity.id,
+              version: entity.version,
+            },
+            data,
+          });
+
+          if (result.count > 0) {
+            try {
+                const key = Cache.normalizeKey(this.target['name'], entity.id);
+                const cache = await Cache.getNodeForKey(key);
+                const cacheEntity = JSON.parse(await cache?.client.get(key) || '{}');
+                await cache?.client.set(key, JSON.stringify({
+                    ...cacheEntity,
+                    ...data
+                }));
+            } catch (e) {
+                console.log(e);
+            }
+          }
+
+          return result;
+        }
+      }
 
 }

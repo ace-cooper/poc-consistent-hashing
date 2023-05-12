@@ -10,6 +10,12 @@ export namespace Cache {
         client: RedisClientType
     }
 
+    export const KEY_SYMBOL = ":";
+
+    export const normalizeKey = (entityName: string, key: string) =>
+    `${entityName.toUpperCase()}${KEY_SYMBOL}${key}`;
+
+
     export const hash = (value: string): number => {
         const hash = crypto.createHash('md5').update(value).digest('hex');
         return parseInt(hash.slice(0, 8), 16);
