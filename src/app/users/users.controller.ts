@@ -3,7 +3,6 @@ import { UserService } from "./user.service";
 export namespace UserController {
     export namespace POST {
         export const create = async (user: any) => {
-            console.log('user', user)
             return await UserService.create(user);
         }
     }

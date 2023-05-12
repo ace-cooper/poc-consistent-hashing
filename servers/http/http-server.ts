@@ -20,7 +20,7 @@ withCtx({ }, async () => Database.withDBM(async () => {
 
     app.post('/users', async (req, res) => {
         const body = req.body;
-        console.log(body)
+
         const data = await index.users!.POST!.create(body);
         
         res.json(data);
