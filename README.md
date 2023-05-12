@@ -24,12 +24,12 @@ Ps: It's not using a third party library to implement consistent hashing, it's j
 
 ## Dev Steps
   ### Step 1
-    ```bash
-    $ ./bin/start-containers.sh
-    ```
+  ```bash
+  $ ./bin/start-containers.sh
+  ```
   ### Step 2
-    Run > Start Debug (F11)
-    or
-    ```bash
-    $ npm start
-    ```
+  Run > Start Debug (F11)
+  or
+  ```bash
+  $ npm start
+  ```
