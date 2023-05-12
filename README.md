@@ -29,9 +29,9 @@ Ps: I'm not using a third party library to implement consistent hashing. The sim
   $ ./bin/start-containers.sh
   ```
   ### Step 2
-  ```
+
   VSCode: **Run > Start Debug** or <kbd>F11</kbd>
-  ```
+ 
   or
   ```bash
   $ ./bin/start.sh
